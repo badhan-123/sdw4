@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{%block content%}
+{% for post in data %}
+
+<div class=" d-flex flex-wrap justify-content-center px-5 pt-5">
+    <div class="col-sm-3 mx-2 ">
+      <div class="card ">
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          <p class="card-text">{{post.content}}</p>
+          <p>
+            Category:{%for cat in post.category.all %}
+            <button class="btn btn-warning m-2" disabled>{{cat.name}}</button>
+            {% endfor %}
+        </p>
+          <small>Author:{{post.author.name}}</small>
+          <a href="#" class="btn btn-primary">edit</a>
+          <a href="#" class="btn btn-warning">delete</a>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  {% endfor %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+{% endblock %}

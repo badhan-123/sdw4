@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Musician List{% endblock %}
+
+{% block content %}
+<h2>Musicians and Their Albums</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Musician Name</th>
+            <th>Email</th>
+            <th>Instrument</th>
+            <th>Albums</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for musician in musicians %}
+        <tr>
+            <td>{{ musician.id }}</td>
+            <td><a href="{% url 'musician_edit' musician.id %}">{{ musician.first_name }} {{ musician.last_name }}</a></td>
+            <td>{{ musician.email }}</td>
+            <td>{{ musician.instrument_type }}</td>
+            <td>
+                {% if musician.albums.all %}
+                    <ul>
+                        {% for album in musician.albums.all %}
+                            <li>
+                                <strong>{{ album.album_name }}</strong> ({{ album.release_date }}) - Rating: {{ album.rating }}
+                                <a href="{% url 'album_edit' album.id %}">Edit</a> |
+                                <a href="{% url 'album_delete' album.id %}">Delete</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    No Albums
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'musician_edit' musician.id %}">Edit</a> |
+                <a href="{% url 'musician_delete' musician.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
